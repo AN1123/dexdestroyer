@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEXDESTROYER | Smash the Charts</title>
+    <!-- CSS loaded via JS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-green: #00FF41;
+            --dark-bg: #0a0a0f;
+            --xp-blue: #0055E5;
+            --xp-title: linear-gradient(180deg, #0A246A 0%, #0055E5 8%, #0078D7 40%, #0055E5 88%, #0A246A 93%, #003399 95%, #0A246A 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid #1e1e2e;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--neon-green);
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #a0a0b0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-green);
+        }
+
+        .buy-btn {
+            background: var(--neon-green);
+            color: #000;
+            padding: 10px 24px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .buy-btn:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 120px 30px 40px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 900;
+            color: var(--neon-green);
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.4);
+            margin-bottom: 15px;
+            letter-spacing: 4px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #a0a0b0;
+            margin-bottom: 30px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--neon-green);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 25px rgba(0, 255, 65, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--neon-green);
+            border: 2px solid var(--neon-green);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 255, 65, 0.1);
+        }
+
+        /* Destroyer Section */
+        .destroyer-section {
+            padding: 20px 30px 60px;
+        }
+
+        .xp-window {
+            max-width: 1400px;
+            margin: 0 auto;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+            box-shadow: 0 10px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .xp-titlebar {
+            background: var(--xp-title);
+            padding: 6px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .xp-title {
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .xp-buttons {
+            display: flex;
+            gap: 4px;
+        }
+
+        .xp-btn {
+            width: 21px;
+            height: 21px;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .xp-btn-min { background: linear-gradient(180deg, #3dc9ff 0%, #0078d7 100%); }
+        .xp-btn-max { background: linear-gradient(180deg, #3dc9ff 0%, #0078d7 100%); }
+        .xp-btn-close { background: linear-gradient(180deg, #ff8888 0%, #d94444 100%); color: white; }
+
+        /* Tabs */
+        .tabs {
+            background: #ECE9D8;
+            display: flex;
+            padding: 8px 8px 0;
+            gap: 4px;
+        }
+
+        .tab {
+            padding: 8px 20px;
+            background: #d4d0c8;
+            border: 1px solid #808080;
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
+            cursor: pointer;
+            font-size: 13px;
+            color: #000;
+            transition: background 0.2s;
+        }
+
+        .tab:hover {
+            background: #e8e4dc;
+        }
+
+        .tab.active {
+            background: white;
+            border-bottom: 1px solid white;
+            margin-bottom: -1px;
+        }
+
+        /* Content Area */
+        .content-area {
+            background: white;
+            height: 800px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .site-frame {
+            display: none;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .site-frame.active {
+            display: block;
+        }
+
+        .site-frame img {
+            width: 100%;
+            min-height: 100%;
+            display: block;
+        }
+
+        /* Destroyer Container */
+        #destroyer-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        #destroyer-container.active {
+            pointer-events: auto;
+        }
+
+        /* Controls */
+        .controls {
+            background: #ECE9D8;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            border-top: 1px solid #808080;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control-label {
+            font-size: 12px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .destroy-toggle {
+            background: #d94444;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .destroy-toggle.active {
+            background: var(--neon-green);
+            color: #000;
+        }
+
+        .weapon-btn {
+            background: #d4d0c8;
+            border: 1px solid #808080;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 12px;
+            border-radius: 3px;
+        }
+
+        .weapon-btn.active {
+            background: #0078d7;
+            color: white;
+            border-color: #0055aa;
+        }
+
+        .clear-btn {
+            background: #808080;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        /* Token Section */
+        .token-section {
+            padding: 80px 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--neon-green);
+        }
+
+        .token-story {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #c0c0c0;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .token-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .token-card {
+            background: #12121a;
+            border: 1px solid #1e1e2e;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .token-card-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .token-card-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--neon-green);
+        }
+
+        .contract-box {
+            background: #12121a;
+            border: 1px solid #1e1e2e;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .contract-box code {
+            font-family: monospace;
+            color: #888;
+            font-size: 14px;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: var(--neon-green);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* FAQ */
+        .faq-section {
+            padding: 80px 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #1e1e2e;
+            padding: 20px 0;
+        }
+
+        .faq-question {
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 24px;
+            color: var(--neon-green);
+        }
+
+        .faq-item.open .faq-question::after {
+            content: '−';
+        }
+
+        .faq-answer {
+            display: none;
+            padding-top: 15px;
+            color: #a0a0b0;
+            line-height: 1.6;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 30px;
+            text-align: center;
+            border-top: 1px solid #1e1e2e;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-green);
+        }
+
+        .footer-copy {
+            color: #444;
+            font-size: 14px;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .content-area {
+                height: 500px;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .controls {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">🔨 DEXDESTROYER</div>
+        <nav class="nav-links">
+            <a href="#play">Play</a>
+            <a href="#token">Token</a>
+            <a href="#faq">FAQ</a>
+        </nav>
+        <a href="#PLACEHOLDER_PUMP_LINK" class="buy-btn">Buy $DEXD</a>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>DEXDESTROYER</h1>
+        <p>Smash the charts. Wreck the FUD. Click to destroy.</p>
+        <div class="hero-btns">
+            <a href="#play" class="btn btn-primary">🔨 Launch Destroyer</a>
+            <a href="#PLACEHOLDER_PUMP_LINK" class="btn btn-secondary">Buy on Pump.fun</a>
+        </div>
+    </section>
+
+    <!-- Destroyer Section -->
+    <section id="play" class="destroyer-section">
+        <div class="xp-window">
+            <div class="xp-titlebar">
+                <div class="xp-title">
+                    <span>🔨</span>
+                    DexDestroyer v1.0
+                </div>
+                <div class="xp-buttons">
+                    <div class="xp-btn xp-btn-min">_</div>
+                    <div class="xp-btn xp-btn-max">□</div>
+                    <div class="xp-btn xp-btn-close">×</div>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <div class="tab active" data-site="pump">Pump.fun</div>
+                <div class="tab" data-site="binance">Binance</div>
+                <div class="tab" data-site="cmc">CoinMarketCap</div>
+                <div class="tab" data-site="dex">Dexscreener</div>
+            </div>
+
+            <div class="content-area" id="contentArea">
+                <div class="site-frame active" data-site="pump">
+                    <img src="/pumpfun.jpg" alt="Pump.fun">
+                </div>
+                <div class="site-frame" data-site="binance">
+                    <img src="/binance.jpg" alt="Binance">
+                </div>
+                <div class="site-frame" data-site="cmc">
+                    <img src="/coinmarketcap.jpg" alt="CoinMarketCap">
+                </div>
+                <div class="site-frame" data-site="dex">
+                    <img src="/dexscreener.jpg" alt="Dexscreener">
+                </div>
+
+                <div id="destroyer-container"></div>
+            </div>
+
+            <div class="controls">
+                <div class="control-group">
+                    <button class="destroy-toggle" id="destroyToggle">🔨 DESTROY MODE</button>
+                </div>
+                <div class="control-group">
+                    <span class="control-label">Weapon:</span>
+                    <button class="weapon-btn active" data-weapon="1">Hammer</button>
+                    <button class="weapon-btn" data-weapon="2">Gun</button>
+                    <button class="weapon-btn" data-weapon="3">Stamp</button>
+                </div>
+                <div class="control-group">
+                    <button class="clear-btn" id="clearBtn">Clear (C)</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Token Section -->
+    <section id="token" class="token-section">
+        <h2 class="section-title">💎 $DEXD TOKEN</h2>
+        <p class="token-story">
+            Remember Desktop Destroyer? That beautiful chaos of smashing your screen with hammers and guns?
+            We brought it back for the degen era. Now you can destroy every chart that ever rugged you.
+            Every pump you missed. Every dump you caught. Smash it all.
+        </p>
+
+        <div class="token-info">
+            <div class="token-card">
+                <div class="token-card-label">Ticker</div>
+                <div class="token-card-value">$DEXD</div>
+            </div>
+            <div class="token-card">
+                <div class="token-card-label">Chain</div>
+                <div class="token-card-value">Solana</div>
+            </div>
+            <div class="token-card">
+                <div class="token-card-label">Supply</div>
+                <div class="token-card-value">1,000,000,000</div>
+            </div>
+        </div>
+
+        <div class="contract-box">
+            <code id="contractAddress">CONTRACT_ADDRESS_HERE</code>
+            <button class="copy-btn" onclick="copyContract()">📋 Copy</button>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq-section">
+        <h2 class="section-title">❓ FAQ</h2>
+
+        <div class="faq-item">
+            <div class="faq-question">What is DexDestroyer?</div>
+            <div class="faq-answer">A memecoin tribute to the classic Desktop Destroyer game. Smash crypto sites for fun while holding $DEXD.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Where can I buy $DEXD?</div>
+            <div class="faq-answer">$DEXD is available on Pump.fun and can be traded on any Solana DEX like Raydium or Jupiter.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">What wallet do I need?</div>
+            <div class="faq-answer">Any Solana wallet works - Phantom, Solflare, or Backpack are popular choices.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Is the game playable on mobile?</div>
+            <div class="faq-answer">Yes! The destroyer works on mobile with touch controls.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">How do I use the destroyer?</div>
+            <div class="faq-answer">Click "Destroy Mode" to activate, then click/drag on the screen to smash. Use number keys (1, 2, 3) to switch weapons, C to clear.</div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#PLACEHOLDER_PUMP_LINK">Pump.fun</a>
+            <a href="#PLACEHOLDER_DEX_LINK">Dexscreener</a>
+            <a href="#PLACEHOLDER_TWITTER">Twitter/X</a>
+        </div>
+        <p class="footer-copy">© 2026 DexDestroyer. All rights reserved.</p>
+    </footer>
+
+    <script type="module" src="./main.js"></script>
+</body>
+</html>
