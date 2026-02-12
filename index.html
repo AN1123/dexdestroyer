@@ -48,7 +48,7 @@
         }
 
         .logo img {
-            height: 48px;
+            height: 64px;
             width: auto;
         }
 
@@ -91,17 +91,13 @@
         .reset-btn {
             background: #d94444;
             color: white;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 4px;
             border: none;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
-            display: none;
-        }
-
-        .reset-btn.visible {
-            display: block;
+            font-size: 13px;
         }
 
         .reset-btn:hover {
@@ -111,8 +107,12 @@
 
         /* Hero */
         .hero {
-            padding: 100px 30px 20px;
-            text-align: center;
+            padding: 90px 30px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
         }
 
         .hero h1 {
@@ -125,22 +125,17 @@
         }
 
         .hero-logo {
-            max-width: 400px;
-            width: 70%;
-            height: auto;
-            margin-bottom: 10px;
+            height: 60px;
+            width: auto;
         }
 
         .hero p {
-            font-size: 20px;
-            color: #a0a0b0;
-            margin-bottom: 20px;
+            display: none;
         }
 
         .hero-btns {
             display: flex;
             gap: 15px;
-            justify-content: center;
             flex-wrap: wrap;
         }
 
@@ -275,12 +270,14 @@
             display: block;
         }
 
-        .site-frame img {
+        .site-frame img,
+        .site-frame iframe {
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: top left;
             display: block;
+            border: none;
         }
 
         /* Destroyer Container */
@@ -552,7 +549,6 @@
             <a href="#faq">FAQ</a>
         </nav>
         <div class="header-btns">
-            <button class="reset-btn" id="headerReset">⏹ STOP DESTROY</button>
             <a href="#PLACEHOLDER_PUMP_LINK" class="buy-btn">Buy $DEXD</a>
         </div>
     </header>
@@ -560,7 +556,6 @@
     <!-- Hero -->
     <section class="hero">
         <img src="/logo.png" alt="DexDestroyer" class="hero-logo">
-        <p>Smash the charts. Wreck the FUD. Click to destroy.</p>
         <div class="hero-btns">
             <a href="#play" class="btn btn-primary" id="launchBtn">🔨 Launch Destroyer</a>
             <a href="#PLACEHOLDER_PUMP_LINK" class="btn btn-secondary">Buy on Pump.fun</a>
@@ -591,7 +586,7 @@
 
             <div class="content-area" id="contentArea">
                 <div class="site-frame active" data-site="dex">
-                    <img src="/dexscreener.png" alt="Dexscreener">
+                    <iframe src="https://dexscreener.com/" title="Dexscreener"></iframe>
                 </div>
                 <div class="site-frame" data-site="pump">
                     <img src="/pumpfun.png" alt="Pump.fun">
@@ -609,6 +604,7 @@
             <div class="controls">
                 <div class="control-group">
                     <button class="destroy-toggle" id="destroyToggle">🔨 DESTROY MODE</button>
+                    <button class="reset-btn" id="stopDestroy">⏹ STOP</button>
                 </div>
                 <div class="control-group">
                     <span class="control-label">Weapon:</span>

@@ -19,7 +19,7 @@ const container = document.getElementById('destroyer-container');
 const destroyToggle = document.getElementById('destroyToggle');
 const clearBtn = document.getElementById('clearBtn');
 const weaponBtns = document.querySelectorAll('.weapon-btn');
-const headerReset = document.getElementById('headerReset');
+const stopDestroy = document.getElementById('stopDestroy');
 
 let destroyer = null;
 let isActive = false;
@@ -44,7 +44,6 @@ function activateDestroy() {
     destroyToggle.classList.add('active');
     container.classList.add('active');
     destroyToggle.textContent = '🔨 DESTROY MODE ON';
-    headerReset.classList.add('visible');
 }
 
 function deactivateDestroy() {
@@ -52,7 +51,6 @@ function deactivateDestroy() {
     destroyToggle.classList.remove('active');
     container.classList.remove('active');
     destroyToggle.textContent = '🔨 DESTROY MODE';
-    headerReset.classList.remove('visible');
 }
 
 destroyToggle.addEventListener('click', () => {
@@ -63,8 +61,8 @@ destroyToggle.addEventListener('click', () => {
     }
 });
 
-// Header reset button
-headerReset.addEventListener('click', () => {
+// Stop destroy button
+stopDestroy.addEventListener('click', () => {
     deactivateDestroy();
     if (destroyer) destroyer.clear();
 });
