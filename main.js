@@ -19,37 +19,66 @@ const container = document.getElementById('destroyer-container');
 const destroyToggle = document.getElementById('destroyToggle');
 const clearBtn = document.getElementById('clearBtn');
 const weaponBtns = document.querySelectorAll('.weapon-btn');
+const headerReset = document.getElementById('headerReset');
 
 let destroyer = null;
 let isActive = false;
+let currentWeapon = 1;
 
-// Initialize destroyer immediately but keep it inactive
+// Initialize destroyer
 destroyer = new Destroyer(container, {
     defaultVolume: 0.3,
-    particleLimit: 50,
+    particleLimit: 100,
     zIndexStart: 200
 });
 destroyer.inject();
 
+function activateDestroy() {
+    isActive = true;
+    destroyToggle.classList.add('active');
+    container.classList.add('active');
+    destroyToggle.textContent = '🔨 DESTROY MODE ON';
+    headerReset.classList.add('visible');
+}
+
+function deactivateDestroy() {
+    isActive = false;
+    destroyToggle.classList.remove('active');
+    container.classList.remove('active');
+    destroyToggle.textContent = '🔨 DESTROY MODE';
+    headerReset.classList.remove('visible');
+}
+
 destroyToggle.addEventListener('click', () => {
-    isActive = !isActive;
-    destroyToggle.classList.toggle('active', isActive);
-    container.classList.toggle('active', isActive);
-    
     if (isActive) {
-        destroyToggle.textContent = '🔨 DESTROY MODE ON';
+        deactivateDestroy();
     } else {
-        destroyToggle.textContent = '🔨 DESTROY MODE';
+        activateDestroy();
     }
+});
+
+// Header reset button
+headerReset.addEventListener('click', () => {
+    deactivateDestroy();
+    if (destroyer) destroyer.clear();
 });
 
 // Weapon switching via buttons
 weaponBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         if (!destroyer) return;
+        
+        const weaponId = parseInt(btn.dataset.weapon);
+        currentWeapon = weaponId;
+        
+        // Update UI
         weaponBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        destroyer.setWeapon(parseInt(btn.dataset.weapon));
+        
+        // Set weapon
+        destroyer.setWeapon(weaponId);
     });
 });
 
@@ -59,6 +88,7 @@ document.addEventListener('keydown', (e) => {
     
     if (e.key === '1' || e.key === '2' || e.key === '3') {
         const weaponId = parseInt(e.key);
+        currentWeapon = weaponId;
         destroyer.setWeapon(weaponId);
         weaponBtns.forEach(b => {
             b.classList.toggle('active', parseInt(b.dataset.weapon) === weaponId);

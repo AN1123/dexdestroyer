@@ -65,6 +65,12 @@
             color: var(--neon-green);
         }
 
+        .header-btns {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
         .buy-btn {
             background: var(--neon-green);
             color: #000;
@@ -77,6 +83,27 @@
 
         .buy-btn:hover {
             box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+        }
+
+        .reset-btn {
+            background: #d94444;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: none;
+        }
+
+        .reset-btn.visible {
+            display: block;
+        }
+
+        .reset-btn:hover {
+            background: #ff5555;
+            box-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
         }
 
         /* Hero */
@@ -495,7 +522,7 @@
             }
         }
     </style>
-  <script type="module" crossorigin src="./assets/index-CnIVdRsA.js"></script>
+  <script type="module" crossorigin src="./assets/index-JoveuF4w.js"></script>
   <link rel="stylesheet" crossorigin href="./assets/index-CumjoQrX.css">
 </head>
 <body>
@@ -507,7 +534,10 @@
             <a href="#token">Token</a>
             <a href="#faq">FAQ</a>
         </nav>
-        <a href="#PLACEHOLDER_PUMP_LINK" class="buy-btn">Buy $DEXD</a>
+        <div class="header-btns">
+            <button class="reset-btn" id="headerReset">⏹ STOP DESTROY</button>
+            <a href="#PLACEHOLDER_PUMP_LINK" class="buy-btn">Buy $DEXD</a>
+        </div>
     </header>
 
     <!-- Hero -->
