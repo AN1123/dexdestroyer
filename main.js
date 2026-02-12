@@ -123,6 +123,17 @@ clearBtn.addEventListener('click', () => {
     if (destroyer) destroyer.clear();
 });
 
+// Launch Destroyer button - scrolls and activates destroy mode
+const launchBtn = document.getElementById('launchBtn');
+if (launchBtn) {
+    launchBtn.addEventListener('click', (e) => {
+        // Let the anchor scroll happen, then activate destroy mode
+        setTimeout(() => {
+            activateDestroy();
+        }, 300);
+    });
+}
+
 // FAQ
 document.querySelectorAll('.faq-question').forEach(q => {
     q.addEventListener('click', () => {
