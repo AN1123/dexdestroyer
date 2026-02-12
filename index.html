@@ -43,10 +43,13 @@
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--neon-green);
-            text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 32px;
+            width: auto;
         }
 
         .nav-links {
@@ -529,7 +532,7 @@
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="logo">🔨 DEXDESTROYER</div>
+        <div class="logo"><img src="/logo.png" alt="DexDestroyer"></div>
         <nav class="nav-links">
             <a href="#play">Play</a>
             <a href="#token">Token</a>
